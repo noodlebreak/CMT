@@ -223,9 +223,12 @@ class CMT(object):
 		tracked_keypoints, _ = util.track(self.im_prev, im_gray, self.active_keypoints)
 		(center, scale_estimate, rotation_estimate, tracked_keypoints) = self.estimate(tracked_keypoints)
 
+		st = time.time()
 		# Detect keypoints, compute descriptors
 		keypoints_cv = self.detector.detect(im_gray) 
 		keypoints_cv, features = self.descriptor.compute(im_gray, keypoints_cv)
+		et = time.time()
+		print "BRISK time", (et-st)
 
 		# Create list of active keypoints
 		active_keypoints = zeros((0, 3)) 
